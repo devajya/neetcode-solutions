@@ -1,19 +1,14 @@
 class Solution:
     def subsets(self, nums: List[int]) -> List[List[int]]:
         ans = []
-        cur = []
+        def backtrack(start_idx, curr_path):
+            
+            ans.append(list(curr_path))
 
-        def chooser(idx):
-            if idx>=len(nums):
-                ans.append(cur.copy())
-                return
-            cur.append(nums[idx])
-            chooser(idx+1)
-            cur.pop()
-            chooser(idx+1)
+            for i in range(start_idx, len(nums)):
+                curr_path.append(nums[i])
+                backtrack(i+1, curr_path)
+                curr_path.pop()
 
-        chooser(0)
-
+        backtrack(0, [])
         return ans
-        
-
